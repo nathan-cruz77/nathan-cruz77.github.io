@@ -1,4 +1,4 @@
-sudo: false
+sudo: true
 branches:
   only:
   - pelican
@@ -11,6 +11,7 @@ before_install:
 - git remote set-url origin git@github.com:nathan-cruz77/nathan-cruz77.github.io.git
 - git fetch origin -f master:master
 install:
+- pip install --upgrade pip
 - pip install -r requirements.txt
 script:
 - make github
