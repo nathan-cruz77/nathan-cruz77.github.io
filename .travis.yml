@@ -2,7 +2,7 @@ sudo: false
 branches:
   only:
   - pelican
-language: python
+language: python3
 before_install:
 -  openssl aes-256-cbc -K $encrypted_c80005af0e46_key -iv $encrypted_c80005af0e46_iv -in publish-key.enc -out ~/.ssh/publish-key -d
 - chmod u=rw,og= ~/.ssh/publish-key
