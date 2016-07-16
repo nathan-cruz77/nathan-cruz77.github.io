@@ -1,17 +1,19 @@
-sudo: true
+sudo: false
 branches:
   only:
   - pelican
-language: python3
+language: python
+python:
+  - "3.4"
 before_install:
--  openssl aes-256-cbc -K $encrypted_c80005af0e46_key -iv $encrypted_c80005af0e46_iv -in publish-key.enc -out ~/.ssh/publish-key -d
-- chmod u=rw,og= ~/.ssh/publish-key
-- echo "Host github.com" >> ~/.ssh/config
-- echo "  IdentityFile ~/.ssh/publish-key" >> ~/.ssh/config
-- git remote set-url origin git@github.com:nathan-cruz77/nathan-cruz77.github.io.git
-- git fetch origin -f master:master
+  -  openssl aes-256-cbc -K $encrypted_c80005af0e46_key -iv $encrypted_c80005af0e46_iv -in publish-key.enc -out ~/.ssh/publish-key -d
+  - chmod u=rw,og= ~/.ssh/publish-key
+  - echo "Host github.com" >> ~/.ssh/config
+  - echo "  IdentityFile ~/.ssh/publish-key" >> ~/.ssh/config
+  - git remote set-url origin git@github.com:nathan-cruz77/nathan-cruz77.github.io.git
+  - git fetch origin -f master:master
 install:
-- pip install --upgrade pip
-- pip install -r requirements.txt
+  - pip install --user --upgrade pip
+  - pip install --user -r requirements.txt
 script:
-- make github
+  - make github
