@@ -6,7 +6,7 @@ AUTHOR = 'Bla'
 SITENAME = 'Blog do Bla'
 SITEURL = ''
 
-PATH = 'content'
+PATH = 'content/articles'
 
 TIMEZONE = 'America/Sao_Paulo'
 
