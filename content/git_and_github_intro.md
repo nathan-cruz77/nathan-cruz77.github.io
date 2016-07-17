@@ -1,6 +1,7 @@
-title: Introdução a Git e GitHub
-date: 16-07-2016 18:21
-Category: Git, Github
+Title: Introdução a Git e GitHub
+Date: 16-07-2016 18:21
+Category: Controle de Versão
+Tags: Git, GitHub
 
 ## O que é Git?
 [**Git**](https://pt.wikipedia.org/wiki/Git) é um [sistema de controle de versão](https://pt.wikipedia.org/wiki/Sistema_de_controle_de_vers%C3%A3o)
