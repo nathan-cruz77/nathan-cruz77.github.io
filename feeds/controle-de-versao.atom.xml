@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Blog do Bla</title><link href="/" rel="alternate"></link><link href="/feeds/git-github.atom.xml" rel="self"></link><id>/</id><updated>2016-07-16T18:21:00-03:00</updated><entry><title>Introdução a Git e GitHub</title><link href="/introducao-a-git-e-github.html" rel="alternate"></link><published>2016-07-16T18:21:00-03:00</published><author><name>Bla</name></author><id>tag:,2016-07-16:introducao-a-git-e-github.html</id><summary type="html">&lt;h2&gt;O que é Git?&lt;/h2&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Blog do Bla</title><link href="/" rel="alternate"></link><link href="/feeds/controle-de-versao.atom.xml" rel="self"></link><id>/</id><updated>2016-07-16T18:21:00-03:00</updated><entry><title>Introdução a Git e GitHub</title><link href="/introducao-a-git-e-github.html" rel="alternate"></link><published>2016-07-16T18:21:00-03:00</published><author><name>Bla</name></author><id>tag:,2016-07-16:introducao-a-git-e-github.html</id><summary type="html">&lt;h2&gt;O que é Git?&lt;/h2&gt;
 &lt;p&gt;&lt;a href="https://pt.wikipedia.org/wiki/Git"&gt;&lt;strong&gt;Git&lt;/strong&gt;&lt;/a&gt; é um &lt;a href="https://pt.wikipedia.org/wiki/Sistema_de_controle_de_vers%C3%A3o"&gt;sistema de controle de versão&lt;/a&gt;
 criado, a princípio, para gerenciar o desenvolvimento do kernel &lt;a href=""&gt;&lt;strong&gt;Linux&lt;/strong&gt;&lt;/a&gt;.
 Sua principal diferença em relação a outros sistemas de controle de versão
@@ -108,4 +108,4 @@ você deve:&lt;/p&gt;
 ao usar &lt;strong&gt;Git&lt;/strong&gt; e &lt;strong&gt;GitHub&lt;/strong&gt;, é bastante simples e fácil de se acostumar.
 Entender como realizar estas tarefas principais em linha de
 comando pode ajudar drasticamente usuários interface gráfica
-(&lt;a href="https://desktop.github.com/"&gt;&lt;strong&gt;GitHub Desktop&lt;/strong&gt;&lt;/a&gt;) também.&lt;/p&gt;</summary></entry></feed>
+(&lt;a href="https://desktop.github.com/"&gt;&lt;strong&gt;GitHub Desktop&lt;/strong&gt;&lt;/a&gt;) também.&lt;/p&gt;</summary><category term="Git"></category><category term="GitHub"></category></entry></feed>
