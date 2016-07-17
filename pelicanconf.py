@@ -20,7 +20,7 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 GOOGLE_ANALYTICS = 'UA-77554989-1'
-GITHUB_URL = 'https://github.com/nathan-cruz77'
+GITHUB_URL = 'https://github.com/nathan-cruz77/nathan-cruz77.github.io'
 
 DEFAULT_PAGINATION = 10
 
