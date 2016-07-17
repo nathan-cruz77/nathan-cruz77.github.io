@@ -5,11 +5,8 @@ from __future__ import unicode_literals
 AUTHOR = 'Bla'
 SITENAME = 'Blog do Bla'
 SITEURL = ''
-
 PATH = 'content'
-
 TIMEZONE = 'America/Sao_Paulo'
-
 DEFAULT_LANG = 'pt'
 
 # Feed generation is usually not desired when developing
@@ -20,7 +17,8 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 GOOGLE_ANALYTICS = 'UA-77554989-1'
-GITHUB_URL = 'https://github.com/nathan-cruz77/nathan-cruz77.github.io'
+
+SOCIAL = (('github', 'http://github.com/nathan-cruz77'),)
 
 DEFAULT_PAGINATION = 10
 
