@@ -1,10 +1,11 @@
 Title: Códigos maneiros com python parte 1
 Date: 17-07-2016 00:28
+Modified: 17-07-2016 19:21
 Category: Programação
 Tags: Python
 
 Há algumas semanas tive que implementar alguns algoritmos de inteligência
-artificial para um trabalho da faculdade. Acabei fazendo vários códigos
+artificial para um trabalho da faculdade. Acabei fazendo alguns códigos
 que talvez sejam úteis para outras pessoas, então decidi compartilhá-los.
 
 Obs: Todos os códigos deste artigo foram testados em Python 3.4.
