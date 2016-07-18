@@ -69,6 +69,7 @@ Esta segunda solução também funciona:
 ```
 E em tempo muito melhor:
 ![fibonacci_cached](images/fib_cache.png)
+
 O tempo não é zero, apenas mantive a escala do gráfico anterior para
 tornar a diferença graficamente notável.
 
