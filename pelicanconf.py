@@ -6,6 +6,7 @@ AUTHOR = 'Bla'
 SITENAME = 'Blog do Bla'
 SITEURL = ''
 PATH = 'content'
+STATIC_PATHS = ['images']
 TIMEZONE = 'America/Sao_Paulo'
 DEFAULT_LANG = 'pt'
 
