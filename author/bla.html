@@ -21,196 +21,7 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/medindo-tempo-de-execucao.html">Medindo tempo de execução</a></h1>
-<footer class="post-info">
-        <abbr class="published" title="2016-07-21T01:39:00-03:00">
-                Published: Thu 21 July 2016
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/bla.html">Bla</a>
-        </address>
-<p>In <a href="/category/programacao.html">Programação</a>.</p>
-<p>tags: <a href="/tag/python.html">Python</a> <a href="/tag/otimizacao.html">Otimização</a> <a href="/tag/shell.html">Shell</a> <a href="/tag/profiling.html">Profiling</a> <a href="/tag/bash.html">Bash</a> <a href="/tag/linux.html">Linux</a> </p>
-</footer><!-- /.post-info --><p>No último <a href="/acelerando-fibonacci-com-cache.html">post</a> falei um pouco sobre como
-usar fibonacci para melhorar o desempenho do fibonacci recursivo. Os gráficos que
-gerei foram feitos usando <a href="http://www.gnuplot.info/">Gnuplot</a>.</p>
-<p>Como queria uma quantidade significativa de dados para estes gráficos, não tinha
-como gerá-los manualmente. Precisava automatizar.</p>
-<p>Já havia usado a ferramenta <code>time</code>, uma utilidade oferecida pelo
-<a href="https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29"><code>bash</code></a>, mas tive
-dificuldade em formatar a saída, que tem a seguinte forma:</p>
-<div class="highlight"><pre><span></span>bla@notebook:~$ <span class="nb">time</span> python3 fibonacci.py 25
-teste
-
-real    0m0.064s
-user    0m0.056s
-sys     0m0.008s
-</pre></div>
-
-
-<p>Depois de várias buscas na internet descobri que existe um programa externo ao
-<code>bash</code> também chamado <code>time</code> que também mede o tempo de execução e aceita
-operadores de formato. O programa está instalado em <code>/usr/bin/</code> (pelo menos no
-meu notebook com <a href="https://www.debian.org/">Debian</a>) e, embora este diretório
-faça parte da variável de ambiente <code>PATH</code>, é ofuscado pelo <code>time</code> do <code>bash</code>.
-Para usá-lo então tive que invocar usando o caminho para o arquivo. Por preferência
-pessoal usei o caminho absoluto (<code>/usr/bin/time</code>).</p>
-<p>A saída do <code>/usr/bin/time</code> é no formato:</p>
-<div class="highlight"><pre><span></span>bla@notebook:~$ /usr/bin/time python3 fibonacci.py 25
-0.06user 0.00system 0:00.06elapsed 95%CPU <span class="o">(</span>0avgtext+0avgdata 7724maxresident<span class="o">)</span>k
-0inputs+0outputs <span class="o">(</span>0major+865minor<span class="o">)</span>pagefaults 0swaps
-</pre></div>
-
-
-<p>Como estava interessado apenas no tempo total usado (<em>elapsed</em> na saída acima),
-pude usar uma string de formato bem simples para pegar apenas este campo.</p>
-<div class="highlight"><pre><span></span>bla@notebook:~$ /usr/bin/time -f <span class="s2">&quot;%E&quot;</span> python3 fibonacci.py 25
-0:00.06
-</pre></div>
-
-
-<p>Para remover a parte dos minutos (antes do <code>:</code>) e ter a saída como um número
-facilmente interpretável usei o programa <a href="https://pt.wikipedia.org/wiki/Cut_%28Unix%29"><code>cut</code></a>.
-No caso em questão bastou determinar o delimitador de campos como <code>:</code> e o campo
-de interesse como 2.</p>
-<div class="highlight"><pre><span></span>bla@notebook:~$ /usr/bin/time -f <span class="s2">&quot;%E&quot;</span> python3 fibonacci.py <span class="m">25</span> <span class="p">|</span> cut -d: -f2
-0:00.07
-</pre></div>
-
-
-<p>Isso não foi exatamente como desejado. O que está acontecendo aqui é que o <code>|</code>
-está redirecionando o <a href="https://pt.wikipedia.org/wiki/Fluxos_padr%C3%A3o#Sa.C3.ADda_padr.C3.A3o_.28stdout.29"><code>stdout</code></a>
-do comando anterior a ele para o
-<a href="https://pt.wikipedia.org/wiki/Fluxos_padr%C3%A3o#Entrada_padr.C3.A3o_.28stdin.29"><code>stdin</code></a>
-do <code>cut</code>, mas o <code>/usr/bin/time</code> não imprime no <code>stdout</code> e sim no
-<a href="https://pt.wikipedia.org/wiki/Fluxos_padr%C3%A3o#Erro_padr.C3.A3o_.28stderr.29"><code>stderr</code></a>!
-Uma forma de contornar este problema é redirecionar o <code>stderr</code> para o <code>stdout</code>.
-Felizmente a sintaxe de script do <code>bash</code> nos permite fazer isto facilmente.
-A saída padrão (<code>stdout</code>) é representada como <code>1</code> e a saída de err (<code>stderr</code>) é
-representada como <code>2</code>. Para redirecionar o <code>stderr</code> para o <code>stdout</code> podemos usar
-<code>2&gt;&amp;1</code>. É possível fazer o contrário também (redirecionar <code>stdout</code> para <code>stderr</code>)
-usando <code>1&gt;&amp;2</code>. Então, usando a primeira forma, atingimos o resultado esperado.</p>
-<div class="highlight"><pre><span></span>/usr/bin/time -f <span class="s2">&quot;%E&quot;</span> python3 fibonacci.py <span class="m">25</span> 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> cut -d: -f2
-00.05
-</pre></div>
-
-
-<p>Para testar o tempo de execução <code>fibonacci.py</code> para vários números bastava colocar
-tudo isto num laço e jogar a saída em um arquivo.</p>
-<div class="highlight"><pre><span></span>bla@notebook:~$ <span class="k">for</span> n in <span class="o">{</span>1..5<span class="o">}</span>
-&gt; <span class="k">do</span>
-&gt; /usr/bin/time -f <span class="s2">&quot;%E&quot;</span> python3 fibonacci.py <span class="nv">$n</span> 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> cut -d: -f2 &gt; tempos.txt
-&gt; <span class="k">done</span>
-00.02
-00.02
-00.02
-00.02
-00.02
-</pre></div>
-
-
-<p>Foi assim que gerei os dados dos gráficos do post anterior. Desde então tenho me
-perguntado se esta é a solução mais pythônica. Acredito que não, é excessivamente
-complexo. Então comecei a mexer no código para que não precisasse fazer todo esse
-malabarismo com o shell.</p>
-<h2>Medindo tempo com python</h2>
-<p>A tarefa de medir o tempo de execução de pedaços de código é geralmente parte do
-processo de <em>profiling</em>, que visa detectar gargalos de desempenho. Como este
-processo é bastante usado, também são as subtarefas que o compõe. Medir o tempo
-de execução não é exceção.</p>
-<p>Como toda (ou pelo menos quase toda) linguagem de programação, python oferece um
-módulo para trabalhar com medidas de tempo na biblioteca padrão. A função
-<a href="https://docs.python.org/3/library/time.html?highlight=time.time#time.time"><code>time</code></a>
-(pertencente ao módulo de mesmo nome) retorna a quantidade de segundos passados
-desde <a href="https://en.wikipedia.org/wiki/Unix_time"><em>epoch</em></a> (1 de janeiro de 1970).
-Esta representação de tempo popular é também conhecida como <em>Unix time</em>.</p>
-<p>Com esta função é possível medir o tempo de execução de trechos de código facilmente.
-Por exemplo:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
-
-<span class="k">def</span> <span class="nf">slow_func</span><span class="p">():</span>
-    <span class="c1"># Função de interesse</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="n">tempo_inicial</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">slow_func</span><span class="p">()</span>
-<span class="n">tempo_final</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-
-<span class="n">tempo_total</span> <span class="o">=</span> <span class="n">tempo_final</span> <span class="o">-</span> <span class="n">tempo_inicial</span>
-
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;{:.3f}s&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tempo_total</span><span class="p">))</span>
-</pre></div>
-
-
-<p>Este código já pode ser usado dentro de um laço para gerar todos os tempos no
-formato desejado de uma forma mais limpa que apresentada anteriormente mas, será
-que pode ficar melhor?</p>
-<p>Sim! Usando um decorator podemos tornar este código mais reutilizável e pythônico!</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">functools</span>
-
-
-<span class="k">def</span> <span class="nf">_fibonacci</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">n</span>
-    <span class="k">return</span> <span class="n">fibonacci</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fibonacci</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">temporizador</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
-
-    <span class="n">functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">tempo_inicio</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">tempo_fim</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-
-        <span class="n">tempo_total</span> <span class="o">=</span> <span class="n">tempo_fim</span> <span class="o">-</span> <span class="n">tempo_inicio</span>
-
-        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{} executou em: {:.3f}s&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">fim</span> <span class="o">-</span> <span class="n">inicio</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">res</span>
-
-    <span class="k">return</span> <span class="n">wrapper</span>
-
-
-<span class="nd">@temporizador</span>
-<span class="k">def</span> <span class="nf">fibonacci</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">_fibonacci</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Assumindo que o código acima está no arquivo <code>fibonacci_com_decorator.py</code> podemos
-usá-lo no prompt interativo da seguinte forma:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">fibonacci_com_decorator</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">fibonacci</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">fibonacci</span> <span class="n">executou</span> <span class="n">em</span><span class="p">:</span> <span class="mf">0.000</span><span class="n">s</span>
-<span class="mi">2</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">fibonacci</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span>
-<span class="n">fibonacci</span> <span class="n">executou</span> <span class="n">em</span><span class="p">:</span> <span class="mf">0.053</span><span class="n">s</span>
-<span class="mi">75025</span>
-</pre></div>
-
-
-<p>Foi necessário adicionar um <em>wrapper</em> para a função fibonacci devido a sua natureza
-recursiva. Se o decorator fosse aplicado à função recursiva os tempos de execução
-de todas as chamadas recursivas seriam mostrados.</p>
-<p>O ponto mais interessante é que este método permite medir o desempenho de diferentes
-partes do código executando-o apenas uma vez. Além disto, os dados de performance
-podem ser usados em logs, permitindo que a aplicação seja analisada sem ser
-interrompida.</p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/acelerando-fibonacci-com-cache.html" rel="bookmark"
-                           title="Permalink to Acelerando Fibonacci com cache">Acelerando Fibonacci com cache</a></h1>
-                </header>
-
-                <div class="entry-content">
+                    <h1 class="entry-title"><a href="/acelerando-fibonacci-com-cache.html">Acelerando Fibonacci com cache</a></h1>
 <footer class="post-info">
         <abbr class="published" title="2016-07-17T17:27:00-03:00">
                 Published: Sun 17 July 2016
@@ -225,16 +36,112 @@ interrompida.</p>                </article>
         </address>
 <p>In <a href="/category/programacao.html">Programação</a>.</p>
 <p>tags: <a href="/tag/python.html">Python</a> <a href="/tag/cache.html">Cache</a> <a href="/tag/programacao-dinamica.html">Programação Dinâmica</a> </p>
-</footer><!-- /.post-info -->                <h2>Programação Dinâmica</h2>
+</footer><!-- /.post-info --><h2>Programação Dinâmica</h2>
 <p>No campo de teoria da computação é comum ouvir o termo <em>Programação Dinâmica</em>.
 Pessoalmente achei bastante difícil entender este conceito. Todos os
 lugares que procurava via exemplos usando matrizes, o que deixava o
 código bastante confuso. Finalmente, depois de algumas semanas, entendi
 do que se tratava.</p>
-<p>Programação dinâmica ...</p>
-                <a class="readmore" href="/acelerando-fibonacci-com-cache.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
+<p>Programação dinâmica é uma técnica de desenvolvimento de algoritmos que
+divide o problema em questão, salva as soluções destes subproblemas e
+as combina para resolver o problema maior.</p>
+<p>A parte de dividir o problema em problemas menores é bastante comum em
+algoritmos do tipo <em>dividir-e-conquistar</em>, mas estes não necessariamente
+salvam as soluções dos subproblemas, pois costumam ser resolvidos
+apenas uma vez cada. Algoritmos que fazem uso do <em>Programação Dinâmica</em>
+apresentam sobreposição na árvore de recursão e, para evitar resolver
+mais de uma vez um subproblema, salvamos seu resultado em uma espécie de <a href="https://pt.wikipedia.org/wiki/Cache">cache</a>.</p>
+<h2>Fibonnaci</h2>
+<p>Um exemplo bem simples de problema que pode fazer uso de programação
+dinâmica é o de se calcular o enésimo elemento da <a href="https://pt.wikipedia.org/wiki/Sequ%C3%AAncia_de_Fibonacci"><em>Sequência de Fibonacci</em></a>.</p>
+<p>Uma solução para este problema é:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fibonacci</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">n</span>
+    <span class="k">return</span> <span class="n">fibonacci</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fibonacci</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Temos os resultados:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">fibonacci</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">res</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">55</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Esta solução funciona, claramente. O problema é, como existe uma
+sobreposição dos subproblemas (fibonacci(n - 1) chamará a função com
+o mesmo valor que sua chamada "irmã" fibonacci(n - 2)), vários
+subproblemas estão sendo resolvidos inúmeras vezes. Fazendo com que
+esta soluçã não escale bem.</p>
+<p>Testei a solução acima com vários valores de entrada e medi os tempos
+de execução. São eles:
+<img alt="fibonacci_lento" src="images/fib_lento.png" />
+Podemos melhorar o desempenho salvando os resultados parciais em um
+<code>cache</code>, uma estrutura de dados auxiliar. Algo como:</p>
+<div class="highlight"><pre><span></span><span class="n">cache</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">def</span> <span class="nf">fibonacci_cached</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">cache</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">cache</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cache</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">fibonacci_cached</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fibonacci_cached</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cache</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Esta segunda solução também funciona:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">fibonacci_cached</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">res</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">55</span><span class="p">]</span>
+</pre></div>
+
+
+<p>E em tempo muito melhor:
+<img alt="fibonacci_cached" src="images/fib_cache.png" /></p>
+<p>O tempo não é zero, apenas mantive a escala do gráfico anterior para
+tornar a diferença graficamente notável.</p>
+<p>Apesar da melhoria em desempenho, a solução com cache não é muito agradável.
+Não é muito aconselhável fazer uso de variáveis globais. Este problema
+pode ser superado fazendo uso de classe ou, de forma mais pythonica,
+<code>decorator</code>.</p>
+<p>Fazer uso destas ferramentas mais avançadas adicionaria,
+sem sombra de dúvida, complexidade ao código. Felizmente a biblioteca
+padrão do python oferece um <code>decorator</code> justamente para este tipo de situação.
+O <a href="https://docs.python.org/3/library/functools.html?highlight=lru_cache#functools.lru_cache"><code>lru_cache</code></a> implementa um cache com tamanho limitado (o que é bom,
+afinal ninguém quer explodir a memória do computador!) que descarta,
+quando necessário os registros menos recentemente utilizados (tradução
+livre para o significado do acrônimo <a href="https://en.wikipedia.org/wiki/Cache_algorithms#Examples"><em>LRU</em> - <em>Least Recently Used</em></a>). E torna o código eficiente e elegante.</p>
+<p>Incorporando <code>lru_cache</code> ao exemplo temos:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">lru_cache</span>
+
+<span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">fibonacci</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">n</span>
+    <span class="k">return</span> <span class="n">fibonacci</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fibonacci</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Assim como as outras, esta solução funciona da mesma forma:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">fibonacci</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">res</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">55</span><span class="p">]</span>
+</pre></div>
+
+
+<p>E o desempenho ficou como da solução com cache:
+<img alt="" src="images/fib_lru.png" />.</p>
+<p>Nota: O decorator <code>lru_cache</code> será limitado e terá a funcionalidade de LRU
+apenas se o argumento <code>maxsize</code> for um inteiro positivo. Caso seja <code>None</code>
+o cache será ilimitado.</p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
 
             <li><article class="hentry">
                 <header>
