@@ -104,7 +104,7 @@ Assim como as outras, esta solução funciona da mesma forma:
 [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
 ```
 E o desempenho ficou como da solução com cache:
-![](images/fib_lru.png).
+![grafico_fibonacci_com_lru](images/fib_lru.png).
 
 Nota: O decorator `lru_cache` será limitado e terá a funcionalidade de LRU
 apenas se o argumento `maxsize` for um inteiro positivo. Caso seja `None`
