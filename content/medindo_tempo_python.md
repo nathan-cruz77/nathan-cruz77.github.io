@@ -15,8 +15,6 @@ Já havia usado a ferramenta `time`, uma utilidade oferecida pelo
 dificuldade em formatar a saída, que tem a seguinte forma:
 ```shell
 bla@notebook:~$ time python3 fibonacci.py 25
-teste
-
 real	0m0.064s
 user	0m0.056s
 sys 	0m0.008s
