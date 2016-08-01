@@ -89,7 +89,7 @@ A saída padrão (<code>stdout</code>) é representada como <code>1</code> e a s
 representada como <code>2</code>. Para redirecionar o <code>stderr</code> para o <code>stdout</code> podemos usar
 <code>2&gt;&amp;1</code>. É possível fazer o contrário também (redirecionar <code>stdout</code> para <code>stderr</code>)
 usando <code>1&gt;&amp;2</code>. Então, usando a primeira forma, atingimos o resultado esperado.</p>
-<div class="highlight"><pre><span></span>/usr/bin/time -f <span class="s2">&quot;%E&quot;</span> python3 fibonacci.py <span class="m">25</span> 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> cut -d: -f2
+<div class="highlight"><pre><span></span>bla@notebook:~$ /usr/bin/time -f <span class="s2">&quot;%E&quot;</span> python3 fibonacci.py <span class="m">25</span> 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> cut -d: -f2
 00.05
 </pre></div>
 
