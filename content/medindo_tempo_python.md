@@ -60,7 +60,7 @@ representada como `2`. Para redirecionar o `stderr` para o `stdout` podemos usar
 `2>&1`. É possível fazer o contrário também (redirecionar `stdout` para `stderr`)
 usando `1>&2`. Então, usando a primeira forma, atingimos o resultado esperado.
 ```shell
-/usr/bin/time -f "%E" python3 fibonacci.py 25 2>&1 | cut -d: -f2
+bla@notebook:~$ /usr/bin/time -f "%E" python3 fibonacci.py 25 2>&1 | cut -d: -f2
 00.05
 ```
 Para testar o tempo de execução `fibonacci.py` para vários números bastava colocar
