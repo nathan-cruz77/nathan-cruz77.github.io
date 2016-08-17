@@ -1,67 +1,257 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-        <meta charset="utf-8" />
-        <title>Blog do Bla - Tags</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
+    <title>Tags - Blog do Bla</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+
+
+
+        <meta name="author" content="Bla" />
+
+    <!-- Open Graph tags -->
+        <meta property="og:site_name" content="Blog do Bla" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Blog do Bla"/>
+        <meta property="og:url" content=""/>
+        <meta property="og:description" content="Blog do Bla"/>
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+
+
+
 </head>
+<body>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="/">Blog do Bla </a></h1>
-                <nav><ul>
-                    <li><a href="/category/controle-de-versao.html">Controle de Versão</a></li>
-                    <li><a href="/category/programacao.html">Programação</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Blog do Bla            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="/category/controle-de-versao.html">Controle de versão</a>
+                        </li>
+                        <li >
+                            <a href="/category/programacao.html">Programação</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="tags">
+        <h1>Tags for Blog do Bla</h1>
+        <div class="panel-group" id="accordion">            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-bash">Bash <span class="badge pull-right">1</span></a>
+                    </h4>
+                </div>
+                <div id="collapse-bash" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p><span class="categories-timestamp"><time datetime="2016-07-21T01:39:00-03:00">Thu 21 July 2016</time></span> <a href="/medindo-tempo-de-execucao.html">Medindo tempo de execução</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-cache">Cache <span class="badge pull-right">1</span></a>
+                    </h4>
+                </div>
+                <div id="collapse-cache" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p><span class="categories-timestamp"><time datetime="2016-07-17T17:27:00-03:00">Sun 17 July 2016</time></span> <a href="/acelerando-fibonacci-com-cache.html">Acelerando Fibonacci com cache</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-git">Git <span class="badge pull-right">1</span></a>
+                    </h4>
+                </div>
+                <div id="collapse-git" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p><span class="categories-timestamp"><time datetime="2016-07-16T18:21:00-03:00">Sat 16 July 2016</time></span> <a href="/introducao-a-git-e-github.html">Introdução a Git e GitHub</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-github">GitHub <span class="badge pull-right">1</span></a>
+                    </h4>
+                </div>
+                <div id="collapse-github" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p><span class="categories-timestamp"><time datetime="2016-07-16T18:21:00-03:00">Sat 16 July 2016</time></span> <a href="/introducao-a-git-e-github.html">Introdução a Git e GitHub</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-linux">Linux <span class="badge pull-right">1</span></a>
+                    </h4>
+                </div>
+                <div id="collapse-linux" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p><span class="categories-timestamp"><time datetime="2016-07-21T01:39:00-03:00">Thu 21 July 2016</time></span> <a href="/medindo-tempo-de-execucao.html">Medindo tempo de execução</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-otimizacao">Otimização <span class="badge pull-right">1</span></a>
+                    </h4>
+                </div>
+                <div id="collapse-otimizacao" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p><span class="categories-timestamp"><time datetime="2016-07-21T01:39:00-03:00">Thu 21 July 2016</time></span> <a href="/medindo-tempo-de-execucao.html">Medindo tempo de execução</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-profiling">Profiling <span class="badge pull-right">1</span></a>
+                    </h4>
+                </div>
+                <div id="collapse-profiling" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p><span class="categories-timestamp"><time datetime="2016-07-21T01:39:00-03:00">Thu 21 July 2016</time></span> <a href="/medindo-tempo-de-execucao.html">Medindo tempo de execução</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-programacao-dinamica">Programação Dinâmica <span class="badge pull-right">1</span></a>
+                    </h4>
+                </div>
+                <div id="collapse-programacao-dinamica" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p><span class="categories-timestamp"><time datetime="2016-07-17T17:27:00-03:00">Sun 17 July 2016</time></span> <a href="/acelerando-fibonacci-com-cache.html">Acelerando Fibonacci com cache</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-python">Python <span class="badge pull-right">3</span></a>
+                    </h4>
+                </div>
+                <div id="collapse-python" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p><span class="categories-timestamp"><time datetime="2016-07-21T01:39:00-03:00">Thu 21 July 2016</time></span> <a href="/medindo-tempo-de-execucao.html">Medindo tempo de execução</a></p>
+                        <p><span class="categories-timestamp"><time datetime="2016-07-17T17:27:00-03:00">Sun 17 July 2016</time></span> <a href="/acelerando-fibonacci-com-cache.html">Acelerando Fibonacci com cache</a></p>
+                        <p><span class="categories-timestamp"><time datetime="2016-07-17T00:28:00-03:00">Sun 17 July 2016</time></span> <a href="/construindo-um-range-de-floats.html">Construindo um range de floats</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-shell">Shell <span class="badge pull-right">1</span></a>
+                    </h4>
+                </div>
+                <div id="collapse-shell" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p><span class="categories-timestamp"><time datetime="2016-07-21T01:39:00-03:00">Thu 21 July 2016</time></span> <a href="/medindo-tempo-de-execucao.html">Medindo tempo de execução</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<section id="content" class="body">
-    <h1>Tags for Blog do Bla</h1>
-    <ul>
-        <li><a href="/tag/bash.html">Bash</a> (1)</li>
-        <li><a href="/tag/cache.html">Cache</a> (1)</li>
-        <li><a href="/tag/git.html">Git</a> (1)</li>
-        <li><a href="/tag/github.html">GitHub</a> (1)</li>
-        <li><a href="/tag/linux.html">Linux</a> (1)</li>
-        <li><a href="/tag/otimizacao.html">Otimização</a> (1)</li>
-        <li><a href="/tag/profiling.html">Profiling</a> (1)</li>
-        <li><a href="/tag/programacao-dinamica.html">Programação Dinâmica</a> (1)</li>
-        <li><a href="/tag/python.html">Python</a> (3)</li>
-        <li><a href="/tag/shell.html">Shell</a> (1)</li>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="http://github.com/nathan-cruz77"><i class="fa fa-github-square fa-lg"></i> github</a></li>
+              </ul>
+            </li>
+
+
+
+
+
     </ul>
 </section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Bla
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
 
-        <section id="extras" class="body">
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
 
-                            <li><a href="http://github.com/nathan-cruz77">github</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
-
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
-
+    <!-- Google Analytics -->
     <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-77554989-1']);
-    _gaq.push(['_trackPageview']);
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = 'https://ssl.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-77554989-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
     </script>
+    <!-- End Google Analytics Code -->
+
 </body>
 </html>
