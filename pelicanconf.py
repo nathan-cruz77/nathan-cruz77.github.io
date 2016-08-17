@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = 'Bla'
 SITENAME = 'Blog do Bla'
-SITEURL = 'http://nathan-cruz77.github.io'
+# SITEURL = 'http://nathan-cruz77.github.io'
 PATH = 'content'
 STATIC_PATHS = ['images']
 TIMEZONE = 'America/Sao_Paulo'
@@ -28,4 +28,4 @@ DEFAULT_PAGINATION = 10
 #RELATIVE_URLS = True
 
 # New theme
-THEME = 'pelican-bootstrap3'
+THEME = 'themes/pelican-bootstrap3'
