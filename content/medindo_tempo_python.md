@@ -4,7 +4,7 @@ Category: Programação
 Tags: Python, Otimização, Shell, Profiling, Bash, Linux
 
 No último [post]({filename}/fibonacci_com_cache.md) falei um pouco sobre como
-usar fibonacci para melhorar o desempenho do fibonacci recursivo. Os gráficos que
+usar cache para melhorar o desempenho do fibonacci recursivo. Os gráficos que
 gerei foram feitos usando [Gnuplot](http://www.gnuplot.info/).
 
 Como queria uma quantidade significativa de dados para estes gráficos, não tinha
