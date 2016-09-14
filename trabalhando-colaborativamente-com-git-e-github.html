@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Trabalhando colaborativamente com Git e GitHub - Blog do Bla</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="/trabalhando-colaborativamente-com-git-e-github.html">
+
+        <meta name="author" content="Bla" />
+        <meta name="keywords" content="Git,GitHub" />
+        <meta name="description" content="Alguns posts atrás falei um pouco sobre Git e GitHub mostrando alguns conceitos básicos e um fluxo de trabalho para projetos simples e, geralmente, individuais. Neste post pretendo apresentar um fluxo de trabalho mais voltado para projetos envolvendo várias pessoas. Branches Antes de falar sobre este tópico é importante falar ..." />
+
+        <meta property="og:site_name" content="Blog do Bla" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Trabalhando colaborativamente com Git e GitHub"/>
+        <meta property="og:url" content="/trabalhando-colaborativamente-com-git-e-github.html"/>
+        <meta property="og:description" content="Alguns posts atrás falei um pouco sobre Git e GitHub mostrando alguns conceitos básicos e um fluxo de trabalho para projetos simples e, geralmente, individuais. Neste post pretendo apresentar um fluxo de trabalho mais voltado para projetos envolvendo várias pessoas. Branches Antes de falar sobre este tópico é importante falar ..."/>
+        <meta property="article:published_time" content="2016-06-09" />
+            <meta property="article:section" content="Controle de Versão" />
+            <meta property="article:tag" content="Git" />
+            <meta property="article:tag" content="GitHub" />
+            <meta property="article:author" content="Bla" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Blog do Bla            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="/category/controle-de-versao.html">Controle de versão</a>
+                        </li>
+                        <li >
+                            <a href="/category/programacao.html">Programação</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/trabalhando-colaborativamente-com-git-e-github.html"
+                       rel="bookmark"
+                       title="Permalink to Trabalhando colaborativamente com Git e GitHub">
+                        Trabalhando colaborativamente com Git e GitHub
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2016-06-09T22:01:00-03:00"> Thu 09 June 2016</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/git.html">Git</a>
+        /
+	<a href="/tag/github.html">GitHub</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>Alguns posts atrás falei um pouco sobre Git e GitHub mostrando
+alguns conceitos básicos e um fluxo de trabalho para projetos
+simples e, geralmente, individuais.</p>
+<p>Neste post pretendo apresentar um fluxo de trabalho mais voltado
+para projetos envolvendo várias pessoas.</p>
+<h2>Branches</h2>
+<p>Antes de falar sobre este tópico é importante falar uma
+funcionalidade do Git (e de outros sistemas de controle de
+versão): <a href="https://en.wikipedia.org/wiki/Branching_%28version_control%29"><code>branch</code></a>.
+Uma branch é uma cópia do repositório que permitem que modificaçẽs
+sejam feitas em paralelo na branch original e na nova gerada. Por
+padrão repositórios Git trabalham na branch <code>master</code>. Esta branch
+é geralmente usada para manter uma versão mais estável do projeto,
+sem funcionalidades instáveis ou em fase experimental.</p>
+<p>O comando git usando para manipular branches é, como esperado,
+<a href="https://git-scm.com/docs/git-branch"><code>git branch</code></a>. Sem nenhuma
+opção ele lista todas as branches existentes e destaca a branch
+em uso. Por exemplo, num repositório com as branches <code>master</code> e
+<code>pelican</code> com a segunda em uso, o comando <code>git branch</code> exibiria:</p>
+<p><img alt="exmeplo: git branch" src="images/git_branch_exemplo.png" /></p>
+<p>Para criar uma branch usamos <code>git branch nome-da-nova-branch</code>,
+para mudar de branch em uso
+<a href="https://git-scm.com/docs/git-checkout"><code>git checkout</code></a>.
+Uma tarefa bem comum é criar uma nova branch, geralmente para
+algum tipo de experimento ou correção, e defini-la como corrente.
+Isto pode ser feito da seguinte forma:</p>
+<div class="highlight"><pre><span></span>git branch nova-branch
+git checkout nova-branch
+</pre></div>
+
+
+<p>Como esta é uma tarefa bastante comum, há um atalho para isso.</p>
+<div class="highlight"><pre><span></span>git checkout -b nova-branch
+</pre></div>
+
+
+<p>É possível, e em alguns casos muito útil, fazer o checkout de
+apenas alguns arquivos de uma determinada branch. A sintaxe
+para isto é:</p>
+<div class="highlight"><pre><span></span>git checkout uma-branch-qualquer -- arquivo
+</pre></div>
+
+
+<h2>Colaboração com branches</h2>
+<p>Uma forma bastante interessante de melhorar a colaboração num
+projeto é usando branches. É possível usar apenas um repositório
+central (no GitHub) e, ainda assim, manter a organização.</p>
+<p>A estatégia é:
+  * Usar uma branch nova para cada funcionalidade ou correção
+  * Fazer push desta branch para o respositório no GitHub
+  * Abrir um Pull Request desta branch para master.</p>
+<p>Imaginando que queremos implementar uma funcionalidade
+X, podemos fazer (localmente):</p>
+<div class="highlight"><pre><span></span>git checkout -b X
+<span class="c1"># Fazer as alterações</span>
+git add arquivos
+git commit -m <span class="s2">&quot;Implementada funcionalidade X&quot;</span>
+git push -u origin X
+</pre></div>
+
+
+<p>A última linha criará a branch no GitHub, se não existir,
+e enviará as alterações feitas localmente a esta branch remota.
+Feito isto é possível abrir um <code>Pull Request</code> no GitHub,
+possibiliando discutir o código antes do merge com a master.</p>
+<p>Se necessário adicionar mais modificações ao mesmo
+pull request basta fazer mais pushes na branch e eles
+serão adicionados automagicamente.</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="http://github.com/nathan-cruz77"><i class="fa fa-github-square fa-lg"></i> github</a></li>
+              </ul>
+            </li>
+
+
+
+
+
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Bla
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-77554989-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+</body>
+</html>
