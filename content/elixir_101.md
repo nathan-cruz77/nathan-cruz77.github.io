@@ -121,7 +121,7 @@ $ mix local.hex
 $ mix archive.install https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez
 ```
 É necessário instalar também algumas outras ferramentas (`PostgreSQL` e
-`_inotify_`) mas a instalação varia de acordo com o ambiente. Para mais
+`inotify`) mas a instalação varia de acordo com o ambiente. Para mais
 instruções [clique aqui](http://www.phoenixframework.org/docs/installation#section-postgresql).
 
 ### Criar o projeto
