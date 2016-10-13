@@ -6,7 +6,7 @@ Tags: Elixir, Phoenix
 Elixir é uma linguagem de programação funcional criada pelo brasileiro José
 Valim, autmagicamente rápida e com vários açúcares sintáticos que roda em cima
 da VM do Erlang. Tinha ouvido falar bastante de programação funcional mas não
-sabia ~~e ainda não sei~~ direito o que era. Fui procurar e achei esta
+sabia direito o que era. Fui procurar e achei esta
 definição: `Programação funcional é um paradigma de programação que trata a
 computação como uma avaliação de funções matemáticas e que evita estados ou
 dados mutáveis`. Então, por esta definição, temos que todos os tipos de dados em
