@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Elixir e a web - Blog do Bla</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="/elixir-e-a-web.html">
+
+        <meta name="author" content="Bla" />
+        <meta name="keywords" content="Elixir,Phoenix" />
+        <meta name="description" content="Elixir é uma linguagem de programação funcional criada pelo brasileiro José Valim, autmagicamente rápida e com vários açúcares sintáticos que roda em cima da VM do Erlang. Tinha ouvido falar bastante de programação funcional mas não sabia ~~e ainda não sei~~ direito o que era. Fui procurar e achei esta ..." />
+
+        <meta property="og:site_name" content="Blog do Bla" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Elixir e a web"/>
+        <meta property="og:url" content="/elixir-e-a-web.html"/>
+        <meta property="og:description" content="Elixir é uma linguagem de programação funcional criada pelo brasileiro José Valim, autmagicamente rápida e com vários açúcares sintáticos que roda em cima da VM do Erlang. Tinha ouvido falar bastante de programação funcional mas não sabia ~~e ainda não sei~~ direito o que era. Fui procurar e achei esta ..."/>
+        <meta property="article:published_time" content="2016-12-10" />
+            <meta property="article:section" content="Programação" />
+            <meta property="article:tag" content="Elixir" />
+            <meta property="article:tag" content="Phoenix" />
+            <meta property="article:author" content="Bla" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Blog do Bla            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="/category/controle-de-versao.html">Controle de versão</a>
+                        </li>
+                        <li class="active">
+                            <a href="/category/programacao.html">Programação</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/elixir-e-a-web.html"
+                       rel="bookmark"
+                       title="Permalink to Elixir e a web">
+                        Elixir e a web
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2016-12-10T23:50:00-02:00"> Sat 10 December 2016</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/elixir.html">Elixir</a>
+        /
+	<a href="/tag/phoenix.html">Phoenix</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>Elixir é uma linguagem de programação funcional criada pelo brasileiro José
+Valim, autmagicamente rápida e com vários açúcares sintáticos que roda em cima
+da VM do Erlang. Tinha ouvido falar bastante de programação funcional mas não
+sabia ~~e ainda não sei~~ direito o que era. Fui procurar e achei esta
+definição: <code>Programação funcional é um paradigma de programação que trata a
+computação como uma avaliação de funções matemáticas e que evita estados ou
+dados mutáveis</code>. Então, por esta definição, temos que todos os tipos de dados em
+elixir são imutáveis. Isso pode parecer muito estranho no começo mas, na maioria
+dos casos do dia-a-dia, não vai gerar muitas complicações.</p>
+<h2>Code!!!</h2>
+<p>Sem mais burocracia, vamos ao que interessa. Tenho trabalhado com elixir faz
+alguns meses e tem sido mais divertido do que eu esperava. Vou falar de algumas
+coisas que me chocaram no início.</p>
+<h3>Pattern Matching</h3>
+<p>Honestamente, isso ainda me parece bastante mágico. Não sei como funciona por
+trás dos panos mas, pelo que pude notar, quando uma variável é usada do lado
+esquerdo do operador <code>=</code> uma atribuição é feita à ela (a não ser que esteja
+precedida por <code>^</code>). Caso seja usada do lado direito do operador o valor
+vinculado a ela é usado.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Valor 1 vinculado a variável x</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># Valor de x &quot;dá match&quot; no literal 1 (1 == x)</span>
+<span class="mi">1</span> <span class="o">=</span> <span class="n">x</span>
+
+<span class="c1"># Valor de x igual ao valor a direita do =</span>
+<span class="o">^</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># Explode</span>
+<span class="mi">2</span> <span class="o">=</span> <span class="n">x</span>
+<span class="c1"># ** (MatchError) no match of right hand side value: 1</span>
+
+<span class="c1"># Pegar apenas um valor de um mapa</span>
+<span class="p">%{</span><span class="ss">name</span><span class="p">:</span> <span class="n">x</span><span class="p">}</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">name</span><span class="p">:</span> <span class="s2">&quot;Um nome qualquer&quot;</span><span class="p">,</span> <span class="ss">isso_nao_sera_pego</span><span class="p">:</span> <span class="mi">12</span><span class="p">}</span>
+
+<span class="c1"># Match baseado em um valor literal (várias funções usam esse padrão)</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">x</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">&quot;valor qualquer&quot;</span><span class="p">}</span>
+</pre></div>
+
+
+<h3>Funções e Módulos</h3>
+<p>Uma coisa que achei bastante estranho é não ter <code>return</code>. O último valor gerado
+é retornado.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Funções fora de módulos só podem ser anônimas</span>
+<span class="n">func</span> <span class="o">=</span> <span class="k">fn</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">10</span> <span class="k">end</span>
+
+<span class="c1"># E tem que ser chamadas com essa sintaxe estranha</span>
+<span class="n">func</span><span class="o">.</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="c1"># Nomes de módulos tem que começar com letra maiúscula</span>
+<span class="kd">defmodule</span> <span class="nc">ModuloX</span> <span class="k">do</span>
+  <span class="c1"># Funções com a mesma assinatura podem ser declaradas várias vezes</span>
+  <span class="c1"># e a primeira que der match nos argumentos é invocada</span>
+  <span class="kd">def</span> <span class="n">func_2</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span> <span class="k">do</span>
+    <span class="nc">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">&quot;executing first definition of func_2&quot;</span>
+  <span class="k">end</span>
+  <span class="c1"># _ dá match em qualquer coisa e não pode ser referenciado</span>
+  <span class="kd">def</span> <span class="n">func_2</span><span class="p">(</span><span class="bp">_</span><span class="p">)</span> <span class="k">do</span>
+    <span class="nc">IO</span><span class="o">.</span><span class="n">puts</span> <span class="s2">&quot;executing default func_2&quot;</span>
+  <span class="k">end</span>
+
+  <span class="c1"># Funções nomeadas podem ser privadas ao módulo com defp</span>
+  <span class="kd">defp</span> <span class="n">func_3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">x</span> <span class="o">/</span> <span class="mi">2</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># Parênteses para chamar funções são opcionais</span>
+<span class="nc">ModuloX</span><span class="o">.</span><span class="n">func_2</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span> <span class="o">==</span> <span class="nc">ModuloX</span><span class="o">.</span><span class="n">func_2</span> <span class="mi">12</span> <span class="c1"># true</span>
+
+<span class="nc">ModuloX</span><span class="o">.</span><span class="n">func_2</span> <span class="mi">12</span> <span class="c1"># &quot;executing first definition of func_2&quot;</span>
+<span class="nc">ModuloX</span><span class="o">.</span><span class="n">func_2</span> <span class="c1"># &quot;executing default func_2&quot;</span>
+</pre></div>
+
+
+<h3>Iteration no more</h3>
+<p>Não é muito comum fazer laços em elixir. Apesar de ser possível é preferível, e
+mais rápido, usar recursão para percorrer e processar coleções. O módulo <code>Enum</code>
+da biblioteca padrão oferece várias funções comuns para processamento de
+coleções.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Uma lista de números (sim, os elementos podem ter tipos diferentes)</span>
+<span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+
+<span class="c1"># Aplica uma função a todos os elementos de uma coleção</span>
+<span class="nc">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="k">fn</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">end</span><span class="p">)</span> <span class="c1"># [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]</span>
+
+<span class="c1"># Filtra apenas os pares</span>
+<span class="nc">Enum</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="k">fn</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">rem</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">end</span><span class="p">)</span> <span class="c1"># [2, 4, 6, 8, 10]</span>
+
+<span class="c1"># Soma todos os elementos</span>
+<span class="nc">Enum</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="k">fn</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">acc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">acc</span> <span class="o">+</span> <span class="n">x</span> <span class="k">end</span><span class="p">)</span> <span class="c1"># 55</span>
+
+<span class="c1"># Joga todos os elementos para uma outra coleção</span>
+<span class="nc">Enum</span><span class="o">.</span><span class="n">into</span><span class="p">([</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">],</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="c1"># &quot;123&quot;</span>
+</pre></div>
+
+
+<h2>Phoenix</h2>
+<p><a href="http://www.phoenixframework.org">Phoenix</a> é o framework web <em>de facto</em> para
+construção de APIs e aplicações web com elixir. Vários dos seus aspectos foram
+inspirados em frameworks web de sucesso, como <code>Rails</code> e <code>Django</code>. A forma de
+instalação mais simples é usando o
+<a href="http://elixir-lang.org/docs/stable/mix/Mix.html"><code>Mix</code></a>(uma ferramenta de
+<em>build</em> instalada juntamente com o elixir que traz <em>tasks</em> embutidas para criar,
+compilar e testar projetos elixir, além de gerenciar suas dependências).</p>
+<h3>Instalação</h3>
+<div class="highlight"><pre><span></span><span class="c1"># Instala o gerenciador de pacotes elixir &quot;hex&quot;</span>
+$ mix local.hex
+
+<span class="c1"># Instala o phoenix propriamente dito</span>
+$ mix archive.install https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez
+</pre></div>
+
+
+<p>É necessário instalar também algumas outras ferramentas (<code>PostgreSQL</code> e
+<code>_inotify_</code>) mas a instalação varia de acordo com o ambiente. Para mais
+instruções <a href="http://www.phoenixframework.org/docs/installation#section-postgresql">clique aqui</a>.</p>
+<h3>Criar o projeto</h3>
+<p>Criar um prjeto phoenix vazio é bastante simples, basta fazer:</p>
+<div class="highlight"><pre><span></span>$ mix phoenix.new diretorio_do_projeto
+</pre></div>
+
+
+<p>Considerando que as credenciais do banco de dados estão devidamente configuradas
+no arquivo do configurações do projeto (<code>config/config.exs</code>) podemos criar um
+banco de dados para a aplicação e iniciá-la localmente com:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Cria banco de dados local</span>
+$ mix ecto.create
+
+<span class="c1"># Inicia a aplicação</span>
+$ mix phoenix.server
+</pre></div>
+
+
+<p>Uma aplicação modelo estará disponível em <a href="http://localhost:4000">localhost:4000</a>.</p>
+<p>Feito isto é possível escrever models, views, controllers e módulos auxiliares
+da forma mais adequada para o objetivo do projeto e ser feliz!</p>
+<h2>Links úteis</h2>
+<p>Alguns links que podem ser muito úteis:</p>
+<ul>
+<li><a href="http://elixir-lang.org/docs/stable/elixir/Kernel.html">Elixir docs</a>
+&lt;- Cheque a opção "modo noturno" no rodapé da página</li>
+<li><a href="https://hexdocs.pm/phoenix/Phoenix.html">Phoenix docs</a></li>
+<li><a href="https://hexdocs.pm/ecto/Ecto.html">Ecto docs</a></li>
+</ul>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="http://github.com/nathan-cruz77"><i class="fa fa-github-square fa-lg"></i> github</a></li>
+              </ul>
+            </li>
+
+
+
+
+
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Bla
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-77554989-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+</body>
+</html>
