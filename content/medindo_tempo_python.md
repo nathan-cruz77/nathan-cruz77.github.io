@@ -1,5 +1,6 @@
 Title: Medindo tempo de execução
 Date: 21-07-2016 01:39
+Modified: 25-12-2016 14:01
 Category: Programação
 Tags: Python, Otimização, Shell, Profiling, Bash, Linux
 
@@ -88,6 +89,7 @@ processo de _profiling_, que visa detectar gargalos de desempenho. Como este
 processo é bastante usado, também são as subtarefas que o compõe. Medir o tempo
 de execução não é exceção.
 
+### Usando `time.time()` diretamente
 Como toda (ou pelo menos quase toda) linguagem de programação, python oferece um
 módulo para trabalhar com medidas de tempo na biblioteca padrão. A função
 [`time`](https://docs.python.org/3/library/time.html?highlight=time.time#time.time)
@@ -116,6 +118,7 @@ Este código já pode ser usado dentro de um laço para gerar todos os tempos no
 formato desejado de uma forma mais limpa que apresentada anteriormente mas, será
 que pode ficar melhor?
 
+### Fazendo um _decorator_
 Sim! Usando um decorator podemos tornar este código mais reutilizável e pythônico!
 ```python
 import time
@@ -167,3 +170,57 @@ O ponto mais interessante é que este método permite medir o desempenho de dife
 partes do código executando-o apenas uma vez. Além disto, os dados de performance
 podem ser usados em logs, permitindo que a aplicação seja analisada sem ser
 interrompida.
+
+### Usando um gerenciador de contexto
+Não lembrava desta abordagem até ler um artigo de um amigo meu sobre
+[aceleração de consultas no MongoDB com tornado](https://rafaelcapucho.github.io/2016/09/speeding-up-your-mongodb-queries-up-to-30-times-with-tornado/).
+
+Provavelmente você já se deparou com um gerenciador de contexto,
+principalmente se já viu algum código que mexe com arquivos.
+Um gerenciador de contexto é qualquer objeto que implementa a interface
+de gerenciamento de contexto (métodos `__enter__` e `__exit__`). Os
+objetos retornados por `open` e funções relacionadas a manipulação de
+arquivos são os exemplos mais conhecidos.
+
+Usando estes objetos em um bloco _`with`_ fazemos com que o método `__enter__`
+seja executado ao entrar no bloco e `__exit__` ao sair do bloco. No caso de
+arquivos geralmente temos:
+```python
+with open('some_file_path') as f:
+    pass # ler de f
+
+# f não está mais aberto
+```
+Ao sair do bloco o arquivo é fechado (i.e. `f.close()`) evitanto que precisemos
+lembrar de fazer isto.
+
+Como qualquer objeto que implementa a interface de gerenciador de contexto pode
+ser usado com o _`with`_ podemos fazer um temporizador. Para isto basta fazer com
+que no método `__enter__` comece a marcar o tempo e no `__exit__` a diferença.
+```python
+import time
+import sys
+
+
+class Timer:
+
+    def __enter__(self):
+        self.tempo = time.time()
+        return self
+
+    def __exit__(self, *args):
+        self.tempo = time.time() - self.tempo
+        print('Tempo gasto: {}s'.format(self.tempo))
+
+
+def slow_func():
+    time.sleep(10)
+
+with Timer():
+    slow_func()
+```
+Executando o código acima:
+```bash
+bla@notebook:~$ python context_timer.py
+Tempo gasto: 10.01007342338562s
+```
