@@ -201,6 +201,7 @@ malabarismo com o shell.</p>
 processo de <em>profiling</em>, que visa detectar gargalos de desempenho. Como este
 processo é bastante usado, também são as subtarefas que o compõe. Medir o tempo
 de execução não é exceção.</p>
+<h3>Usando <code>time.time()</code> diretamente</h3>
 <p>Como toda (ou pelo menos quase toda) linguagem de programação, python oferece um
 módulo para trabalhar com medidas de tempo na biblioteca padrão. A função
 <a href="https://docs.python.org/3/library/time.html?highlight=time.time#time.time"><code>time</code></a>
@@ -228,6 +229,7 @@ Por exemplo:</p>
 <p>Este código já pode ser usado dentro de um laço para gerar todos os tempos no
 formato desejado de uma forma mais limpa que apresentada anteriormente mas, será
 que pode ficar melhor?</p>
+<h3>Fazendo um <em>decorator</em></h3>
 <p>Sim! Usando um decorator podemos tornar este código mais reutilizável e pythônico!</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">functools</span>
@@ -280,6 +282,57 @@ de todas as chamadas recursivas seriam mostrados.</p>
 partes do código executando-o apenas uma vez. Além disto, os dados de performance
 podem ser usados em logs, permitindo que a aplicação seja analisada sem ser
 interrompida.</p>
+<h3>Usando um gerenciador de contexto</h3>
+<p>Não lembrava desta abordagem até ler um artigo de um amigo meu sobre
+<a href="https://rafaelcapucho.github.io/2016/09/speeding-up-your-mongodb-queries-up-to-30-times-with-tornado/">aceleração de consultas no MongoDB com tornado</a>.</p>
+<p>Provavelmente você já se deparou com um gerenciador de contexto,
+principalmente se já viu algum código que mexe com arquivos.
+Um gerenciador de contexto é qualquer objeto que implementa a interface
+de gerenciamento de contexto (métodos <code>__enter__</code> e <code>__exit__</code>). Os
+objetos retornados por <code>open</code> e funções relacionadas a manipulação de
+arquivos são os exemplos mais conhecidos.</p>
+<p>Usando estes objetos em um bloco <em><code>with</code></em> fazemos com que o método <code>__enter__</code>
+seja executado ao entrar no bloco e <code>__exit__</code> ao sair do bloco. No caso de
+arquivos geralmente temos:</p>
+<div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;some_file_path&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">pass</span> <span class="c1"># ler de f</span>
+
+<span class="c1"># f não está mais aberto</span>
+</pre></div>
+
+
+<p>Ao sair do bloco o arquivo é fechado (i.e. <code>f.close()</code>) evitanto que precisemos
+lembrar de fazer isto.</p>
+<p>Como qualquer objeto que implementa a interface de gerenciador de contexto pode
+ser usado com o <em><code>with</code></em> podemos fazer um temporizador. Para isto basta fazer com
+que no método <code>__enter__</code> comece a marcar o tempo e no <code>__exit__</code> a diferença.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+
+<span class="k">class</span> <span class="nc">Timer</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tempo</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tempo</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">tempo</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Tempo gasto: {}s&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tempo</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">slow_func</span><span class="p">():</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">Timer</span><span class="p">():</span>
+    <span class="n">slow_func</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Executando o código acima:</p>
+<div class="highlight"><pre><span></span>bla@notebook:~$ python context_timer.py
+Tempo gasto: 10.01007342338562s
+</pre></div>
             </div>
             <!-- /.entry-content -->
         </article>
