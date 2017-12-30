@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Valores padrão em dicionários - Blog do Bla</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="/valores-padrao-em-dicionarios.html">
+
+        <meta name="author" content="Bla" />
+        <meta name="keywords" content="Python,Dict" />
+        <meta name="description" content="Recentemente observei que um problema recorrente em python, principalmente para iniciantes na linguagem, é mapear valores de uma lista para outros valores específicos. Um exemplo deste tipo de problema é: dado uma lista de objetos, separá-los de acordo com seu tipo. Para resolver este problema podemos criar um dicionário onde ..." />
+
+        <meta property="og:site_name" content="Blog do Bla" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Valores padrão em dicionários"/>
+        <meta property="og:url" content="/valores-padrao-em-dicionarios.html"/>
+        <meta property="og:description" content="Recentemente observei que um problema recorrente em python, principalmente para iniciantes na linguagem, é mapear valores de uma lista para outros valores específicos. Um exemplo deste tipo de problema é: dado uma lista de objetos, separá-los de acordo com seu tipo. Para resolver este problema podemos criar um dicionário onde ..."/>
+        <meta property="article:published_time" content="2017-12-27" />
+            <meta property="article:section" content="Programação" />
+            <meta property="article:tag" content="Python" />
+            <meta property="article:tag" content="Dict" />
+            <meta property="article:author" content="Bla" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Blog do Bla            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="/category/controle-de-versao.html">Controle de versão</a>
+                        </li>
+                        <li class="active">
+                            <a href="/category/programacao.html">Programação</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/valores-padrao-em-dicionarios.html"
+                       rel="bookmark"
+                       title="Permalink to Valores padrão em dicionários">
+                        Valores padrão em dicionários
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2017-12-27T00:00:00-02:00"> Wed 27 December 2017</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/python.html">Python</a>
+        /
+	<a href="/tag/dict.html">Dict</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>Recentemente observei que um problema recorrente em python, principalmente para
+iniciantes na linguagem, é mapear valores de uma lista para outros valores
+específicos. Um exemplo deste tipo de problema é: dado uma lista de objetos,
+separá-los de acordo com seu tipo.</p>
+<p>Para resolver este problema podemos criar um dicionário onde as chaves são os
+tipos e os valores são listas de objetos daquele tipo. Uma solução é uma função
+de tenha o seguinte comportamento:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.6</span><span class="p">,</span> <span class="mf">5.3</span><span class="p">,</span> <span class="s1">&#39;asdasd&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;bola&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">func</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="p">{</span><span class="s1">&#39;int&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="s1">&#39;float&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">2.6</span><span class="p">,</span> <span class="mf">5.3</span><span class="p">],</span> <span class="s1">&#39;str&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;asdasd&#39;</span><span class="p">,</span> <span class="s1">&#39;bola&#39;</span><span class="p">],</span> <span class="s1">&#39;NoneType&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">None</span><span class="p">]}</span>
+</pre></div>
+
+
+<p>Uma forma de construir este dicionário é descobrindo todas as possíveis chaves e
+populando-as com uma lista vazia antes de chamar <code>append</code>:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+   <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+
+   <span class="n">keys</span> <span class="o">=</span> <span class="p">{</span><span class="nb">type</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">l</span><span class="p">}</span>
+   <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+       <span class="n">d</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+   <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
+       <span class="n">key</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span>
+       <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+   <span class="k">return</span> <span class="n">d</span>
+
+<span class="c1"># &gt;&gt;&gt; l = [1, 2.6, 5.3, &#39;asdasd&#39;, 8, &#39;bola&#39;, None]</span>
+<span class="c1"># &gt;&gt;&gt; func(l)</span>
+<span class="c1"># {&#39;int&#39;: [1, 8], &#39;str&#39;: [&#39;asdasd&#39;, &#39;bola&#39;], &#39;NoneType&#39;: [None], &#39;float&#39;: [2.6, 5.3]}</span>
+</pre></div>
+
+
+<p>Mas isto é simplesmente cansativo.</p>
+<p>Inicializar dicionários é uma tarefa comum então o método
+<a href="https://docs.python.org/3.6/library/stdtypes.html?highlight=dict#dict.setdefault"><code>setdefault</code></a>
+foi adicionado à classe <code>dict</code> para dar um valor padrão à uma chave caso ela
+ainda não esteja inserida:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;valor1&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;valor2&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;valor3&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;valor4&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
+<span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;valor3&#39;</span><span class="p">,</span> <span class="s1">&#39;valor4&#39;</span><span class="p">],</span> <span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;valor1&#39;</span><span class="p">,</span> <span class="s1">&#39;valor2&#39;</span><span class="p">]}</span>
+</pre></div>
+
+
+<p>Podemos usar este método para reescrever a função:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d</span>
+
+<span class="c1"># &gt;&gt;&gt; l = [1, 2.6, 5.3, &#39;asdasd&#39;, 8, &#39;bola&#39;, None]</span>
+<span class="c1"># &gt;&gt;&gt; func(l)</span>
+<span class="c1"># {&#39;float&#39;: [2.6, 5.3], &#39;str&#39;: [&#39;asdasd&#39;, &#39;bola&#39;], &#39;int&#39;: [1, 8], &#39;NoneType&#39;: [None]}</span>
+</pre></div>
+
+
+<p>Bem melhor!</p>
+<p>O problema aqui é que teríamos que lembrar de chamar <code>setdefault</code> toda vez. Para
+resolver este tipo de problema a biblioteca padrão oferece
+<a href="https://docs.python.org/3.6/library/collections.html#collections.defaultdict"><code>collections.defaultdict</code></a>:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;value1&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;value2&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;value3&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;value4&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
+<span class="p">[</span><span class="s1">&#39;value1&#39;</span><span class="p">,</span> <span class="s1">&#39;value2&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span>
+<span class="p">[</span><span class="s1">&#39;value3&#39;</span><span class="p">,</span> <span class="s1">&#39;value4&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Usando <code>collections.defaultdict</code> para reescrever a função ficamos com:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+
+<span class="c1"># &gt;&gt;&gt; l = [1, 2.6, 5.3, &#39;asdasd&#39;, 8, &#39;bola&#39;, None]</span>
+<span class="c1"># &gt;&gt;&gt; func(l)</span>
+<span class="c1"># {&#39;float&#39;: [2.6, 5.3], &#39;str&#39;: [&#39;asdasd&#39;, &#39;bola&#39;], &#39;int&#39;: [1, 8], &#39;NoneType&#39;: [None]}</span>
+</pre></div>
+
+
+<p>Note que passamos uma função para o construtor do <code>defaultdict</code>. Está função é
+chamada para construir o objeto padrão quando a chave ainda não tiver sido
+inserida. Poderíamos usar outras estruturas <em>built-in</em>, da biblioteca padrão ou
+mesmo funções próprias para construir o valor padrão.</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="http://github.com/nathan-cruz77"><i class="fa fa-github-square fa-lg"></i> github</a></li>
+              </ul>
+            </li>
+
+
+
+
+
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2017 Bla
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-77554989-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+</body>
+</html>
