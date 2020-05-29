@@ -1,0 +1,228 @@
+Slug: measuring-execution-time
+Title: Measuring execution time
+Date: 21-07-2016 01:39
+Modified: 25-12-2016 14:01
+Category: Programming
+Tags: Python, Optimization, Shell, Profiling, Bash, Linux
+Lang: en
+
+On my last [post]({filename}/fibonacci_with_cache.md) I talked about how to use
+cache to improve the performance of a recursive implementation of fibonacci. All
+charts were built with [Gnuplot](http://www.gnuplot.info/).
+
+Since I wanted a significant amount of data for the charts, I could not generate
+them manually. I had to automate.
+
+I had already used the `time` tool, a utility offered by
+[`bash`](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29), but had a hard
+time formatting it's output, which has the following form:
+```shell
+bla@notebook:~$ time python3 fibonacci.py 25
+real	0m0.064s
+user	0m0.056s
+sys 	0m0.008s
+```
+After countless internet searches I found out that there's a program unrelated
+to `bash` also called `time` that measures execution and accepts format
+operators. It is installed on `/usr/bin` (at least on my
+[Debian](https://www.debian.org/) system) and, despite this directory being on my
+`PATH`, it is obfuscated by bash's `time`.
+In order to call it I had to use the file path. By my own preference I used it's
+absolute path (`/usr/bin/time`).
+
+This is how `/usr/bin/time` output looks like:
+```shell
+bla@notebook:~$ /usr/bin/time python3 fibonacci.py 25
+0.06user 0.00system 0:00.06elapsed 95%CPU (0avgtext+0avgdata 7724maxresident)k
+0inputs+0outputs (0major+865minor)pagefaults 0swaps
+```
+As I was only interested in the total time (_elapsed_ in the above snippet),
+I was able to use a quite simple format string to retrieve only this field.
+```shell
+bla@notebook:~$ /usr/bin/time -f "%E" python3 fibonacci.py 25
+0:00.06
+```
+To remove the minutes portion (what precedes `:`) and have an easily parseable
+output I used [`cut`](https://pt.wikipedia.org/wiki/Cut_%28Unix%29).
+In this specific case I simply needed to specify the field delimiter (`:`) and
+the field I wanted (`2`).
+```shell
+bla@notebook:~$ /usr/bin/time -f "%E" python3 fibonacci.py 25 | cut -d: -f2
+0:00.07
+```
+That was not as expected. What is happening here is that the pipe (`|`) is
+redirecting the [`stdout`](https://en.wikipedia.org/wiki/Standard_streams#Standard_output_(stdout))
+of the command on it's left to the
+[`stdin`](https://pt.wikipedia.org/wiki/Fluxos_padr%C3%A3o#Entrada_padr.C3.A3o_.28stdin.29)
+of the command on it's right, in this case `cut`. mas o `/usr/bin/time` não imprime no `stdout` e sim no
+[`stderr`](https://pt.wikipedia.org/wiki/Fluxos_padr%C3%A3o#Erro_padr.C3.A3o_.28stderr.29)!
+Uma forma de contornar este problema é redirecionar o `stderr` para o `stdout`.
+Felizmente a sintaxe de script do `bash` nos permite fazer isto facilmente.
+A saída padrão (`stdout`) é representada como `1` e a saída de err (`stderr`) é
+representada como `2`. Para redirecionar o `stderr` para o `stdout` podemos usar
+`2>&1`. É possível fazer o contrário também (redirecionar `stdout` para `stderr`)
+usando `1>&2`. Então, usando a primeira forma, atingimos o resultado esperado.
+```shell
+bla@notebook:~$ /usr/bin/time -f "%E" python3 fibonacci.py 25 2>&1 | cut -d: -f2
+00.05
+```
+Para testar o tempo de execução `fibonacci.py` para vários números bastava colocar
+tudo isto num laço e jogar a saída em um arquivo.
+```shell
+bla@notebook:~$ for n in {1..5}
+> do
+> /usr/bin/time -f "%E" python3 fibonacci.py $n 2>&1 | cut -d: -f2 > tempos.txt
+> done
+00.02
+00.02
+00.02
+00.02
+00.02
+```
+
+Foi assim que gerei os dados dos gráficos do post anterior. Desde então tenho me
+perguntado se esta é a solução mais pythônica. Acredito que não, é excessivamente
+complexo. Então comecei a mexer no código para que não precisasse fazer todo esse
+malabarismo com o shell.
+
+## Medindo tempo com python
+A tarefa de medir o tempo de execução de pedaços de código é geralmente parte do
+processo de _profiling_, que visa detectar gargalos de desempenho. Como este
+processo é bastante usado, também são as subtarefas que o compõe. Medir o tempo
+de execução não é exceção.
+
+### Usando `time.time()` diretamente
+Como toda (ou pelo menos quase toda) linguagem de programação, python oferece um
+módulo para trabalhar com medidas de tempo na biblioteca padrão. A função
+[`time`](https://docs.python.org/3/library/time.html?highlight=time.time#time.time)
+(pertencente ao módulo de mesmo nome) retorna a quantidade de segundos passados
+desde [_epoch_](https://en.wikipedia.org/wiki/Unix_time) (1 de janeiro de 1970).
+Esta representação de tempo popular é também conhecida como _Unix time_.
+
+Com esta função é possível medir o tempo de execução de trechos de código facilmente.
+Por exemplo:
+```python
+import time
+
+def slow_func():
+    # Função de interesse
+    time.sleep(10)
+
+tempo_inicial = time.time()
+slow_func()
+tempo_final = time.time()
+
+tempo_total = tempo_final - tempo_inicial
+
+print('{:.3f}s'.format(tempo_total))
+```
+Este código já pode ser usado dentro de um laço para gerar todos os tempos no
+formato desejado de uma forma mais limpa que apresentada anteriormente mas, será
+que pode ficar melhor?
+
+### Fazendo um _decorator_
+Sim! Usando um decorator podemos tornar este código mais reutilizável e pythônico!
+```python
+import time
+import functools
+
+
+def _fibonacci(n):
+    if n < 2:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+
+def temporizador(func):
+
+    functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        tempo_inicio = time.time()
+        res = func(*args, **kwargs)
+        tempo_fim = time.time()
+
+        tempo_total = tempo_fim - tempo_inicio
+
+        print('{} executou em: {:.3f}s'.format(func.__name__, fim - inicio))
+        return res
+
+    return wrapper
+
+
+@temporizador
+def fibonacci(n):
+    return _fibonacci(n)
+```
+Assumindo que o código acima está no arquivo `fibonacci_com_decorator.py` podemos
+usá-lo no prompt interativo da seguinte forma:
+```python
+>>> from fibonacci_com_decorator import *
+>>> fibonacci(3)
+fibonacci executou em: 0.000s
+2
+>>> fibonacci(25)
+fibonacci executou em: 0.053s
+75025
+```
+Foi necessário adicionar um _wrapper_ para a função fibonacci devido a sua natureza
+recursiva. Se o decorator fosse aplicado à função recursiva os tempos de execução
+de todas as chamadas recursivas seriam mostrados.
+
+O ponto mais interessante é que este método permite medir o desempenho de diferentes
+partes do código executando-o apenas uma vez. Além disto, os dados de performance
+podem ser usados em logs, permitindo que a aplicação seja analisada sem ser
+interrompida.
+
+### Usando um gerenciador de contexto
+Não lembrava desta abordagem até ler um artigo de um amigo meu sobre
+[aceleração de consultas no MongoDB com tornado](https://rafaelcapucho.github.io/2016/09/speeding-up-your-mongodb-queries-up-to-30-times-with-tornado/).
+
+Provavelmente você já se deparou com um gerenciador de contexto,
+principalmente se já viu algum código que mexe com arquivos.
+Um gerenciador de contexto é qualquer objeto que implementa a interface
+de gerenciamento de contexto (métodos `__enter__` e `__exit__`). Os
+objetos retornados por `open` e funções relacionadas a manipulação de
+arquivos são os exemplos mais conhecidos.
+
+Usando estes objetos em um bloco _`with`_ fazemos com que o método `__enter__`
+seja executado ao entrar no bloco e `__exit__` ao sair do bloco. No caso de
+arquivos geralmente temos:
+```python
+with open('some_file_path') as f:
+    pass # ler de f
+
+# f não está mais aberto
+```
+Ao sair do bloco o arquivo é fechado (i.e. `f.close()`) evitanto que precisemos
+lembrar de fazer isto.
+
+Como qualquer objeto que implementa a interface de gerenciador de contexto pode
+ser usado com o _`with`_ podemos fazer um temporizador. Para isto basta fazer com
+que no método `__enter__` comece a marcar o tempo e no `__exit__` a diferença.
+```python
+import time
+import sys
+
+
+class Timer:
+
+    def __enter__(self):
+        self.tempo = time.time()
+        return self
+
+    def __exit__(self, *args):
+        self.tempo = time.time() - self.tempo
+        print('Tempo gasto: {}s'.format(self.tempo))
+
+
+def slow_func():
+    time.sleep(10)
+
+with Timer():
+    slow_func()
+```
+Executando o código acima:
+```bash
+bla@notebook:~$ python context_timer.py
+Tempo gasto: 10.01007342338562s
+```
