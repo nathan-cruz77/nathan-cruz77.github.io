@@ -9,21 +9,21 @@
 
 
 
-<link rel="canonical" href="/medindo-tempo-de-execucao.html">
+<link rel="canonical" href="/measuring-execution-time.html">
 
         <meta name="author" content="Bla" />
-        <meta name="keywords" content="Python,Otimização,Shell,Profiling,Bash,Linux" />
+        <meta name="keywords" content="Python,Optimization,Shell,Profiling,Bash,Linux" />
         <meta name="description" content="No último post falei um pouco sobre como usar cache para melhorar o desempenho do fibonacci recursivo. Os gráficos que gerei foram feitos usando Gnuplot. Como queria uma quantidade significativa de dados para estes gráficos, não tinha como gerá-los manualmente. Precisava automatizar. Já havia usado a ferramenta time, uma utilidade ..." />
 
         <meta property="og:site_name" content="Blog do Bla" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Medindo tempo de execução"/>
-        <meta property="og:url" content="/medindo-tempo-de-execucao.html"/>
+        <meta property="og:url" content="/measuring-execution-time.html"/>
         <meta property="og:description" content="No último post falei um pouco sobre como usar cache para melhorar o desempenho do fibonacci recursivo. Os gráficos que gerei foram feitos usando Gnuplot. Como queria uma quantidade significativa de dados para estes gráficos, não tinha como gerá-los manualmente. Precisava automatizar. Já havia usado a ferramenta time, uma utilidade ..."/>
         <meta property="article:published_time" content="2016-07-21" />
-            <meta property="article:section" content="Programação" />
+            <meta property="article:section" content="Programming" />
             <meta property="article:tag" content="Python" />
-            <meta property="article:tag" content="Otimização" />
+            <meta property="article:tag" content="Optimization" />
             <meta property="article:tag" content="Shell" />
             <meta property="article:tag" content="Profiling" />
             <meta property="article:tag" content="Bash" />
@@ -62,8 +62,11 @@ Blog do Bla            </a>
                         <li >
                             <a href="/category/controle-de-versao.html">Controle de versão</a>
                         </li>
-                        <li class="active">
+                        <li >
                             <a href="/category/programacao.html">Programação</a>
+                        </li>
+                        <li class="active">
+                            <a href="/category/programming.html">Programming</a>
                         </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -81,7 +84,7 @@ Blog do Bla            </a>
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="/medindo-tempo-de-execucao.html"
+                    <a href="/measuring-execution-time.html"
                        rel="bookmark"
                        title="Permalink to Medindo tempo de execução">
                         Medindo tempo de execução
@@ -104,7 +107,7 @@ Blog do Bla            </a>
 <span class="label label-default">Tags</span>
 	<a href="/tag/python.html">Python</a>
         /
-	<a href="/tag/otimizacao.html">Otimização</a>
+	<a href="/tag/optimization.html">Optimization</a>
         /
 	<a href="/tag/shell.html">Shell</a>
         /
@@ -113,10 +116,12 @@ Blog do Bla            </a>
 	<a href="/tag/bash.html">Bash</a>
         /
 	<a href="/tag/linux.html">Linux</a>
-    
+    <span class="label label-default">Lang</span>
+	<a href="/measuring-execution-time-en.html">en</a>
+
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>No último <a href="/acelerando-fibonacci-com-cache.html">post</a> falei um pouco sobre como
+                <p>No último <a href="{filename}/fibonacci_with_cache.md">post</a> falei um pouco sobre como
 usar cache para melhorar o desempenho do fibonacci recursivo. Os gráficos que
 gerei foram feitos usando <a href="http://www.gnuplot.info/">Gnuplot</a>.</p>
 <p>Como queria uma quantidade significativa de dados para estes gráficos, não tinha
