@@ -3,6 +3,7 @@ Title: Construindo um range de floats
 Date: 17-07-2016 00:28
 Modified: 19-07-2016 22:37
 Category: Python
+Lang: pt
 
 Há algumas semanas tive que implementar alguns algoritmos de inteligência
 artificial para um trabalho da faculdade. Acabei fazendo alguns códigos
