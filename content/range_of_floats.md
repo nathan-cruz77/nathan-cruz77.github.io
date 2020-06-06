@@ -1,5 +1,5 @@
 Slug: range-of-floats
-Title: Construindo um range de floats
+Title: Building a range of floats
 Date: 17-07-2016 00:28
 Modified: 19-07-2016 22:37
 Category: Python
