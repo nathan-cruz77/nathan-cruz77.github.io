@@ -14,8 +14,9 @@ Obs: Todos os códigos deste artigo foram testados em Python 3.4.
 ## Um `range` de `float`'s
 Uma das (sub)tarefas era gerar todos os números num dado intervalo
 com um dado passo. Isto é:
- * [0, 5) com passo 1 deveria resultar em: [0, 1, 2, 3, 4]
- * [0, 0.5) com passo 0.1 deveria resultar em: [0, 0.1, 0.3, 0.4]
+
+* [0, 5) com passo 1 deveria resultar em: [0, 1, 2, 3, 4]
+* [0, 0.5) com passo 0.1 deveria resultar em: [0, 0.1, 0.3, 0.4]
 
 A maioria das pessoas com um pouco de familiaridade com python diria
 que tal problema pode ser resolvido com a função  [`range`](https://docs.python.org/3.4/library/functions.html?highlight=range#func-range). Realmente,

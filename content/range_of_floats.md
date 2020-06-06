@@ -11,8 +11,9 @@ share it.
 
 ## A range of floats
 One of the subtasks was to generate all of the numbers in a given interval:
- * [0, 5) with a step of 1 should result in: [0, 1, 2, 3, 4]
- * [0, 0.5) with a step of 0.1 should result in: [0, 0.1, 0.3, 0.4]
+
+* [0, 5) with a step of 1 should result in: [0, 1, 2, 3, 4]
+* [0, 0.5) with a step of 0.1 should result in: [0, 0.1, 0.3, 0.4]
 
 Most people familiar with python would say we could simply use
 [`range`](https://docs.python.org/3/library/functions.html?highlight=range#func-range).
