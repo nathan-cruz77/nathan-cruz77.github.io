@@ -6,7 +6,7 @@ Category: Programming
 Tags: Python, Optimization, Shell, Profiling, Bash, Linux
 Lang: pt
 
-No último [post]({filename}/fibonacci_with_cache.md) falei um pouco sobre como
+No último [post](/fibonacci-with-cache) falei um pouco sobre como
 usar cache para melhorar o desempenho do fibonacci recursivo. Os gráficos que
 gerei foram feitos usando [Gnuplot](http://www.gnuplot.info/).
 

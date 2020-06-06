@@ -6,7 +6,7 @@ Category: Programming
 Tags: Python, Optimization, Shell, Profiling, Bash, Linux
 Lang: en
 
-On my last [post]({filename}/fibonacci_with_cache.md) I talked about how to use
+On my last [post](/fibonacci-with-cache) I talked about how to use
 cache to improve the performance of a recursive implementation of fibonacci. All
 charts were built with [Gnuplot](http://www.gnuplot.info/).
 
